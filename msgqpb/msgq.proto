@@ -1,0 +1,66 @@
+syntax="proto3";
+
+package msgq;
+
+option go_package="msgqpb/msgq";
+
+message Ping {
+    bool ack = 1;
+}
+
+message PingRequest{
+    Ping ping = 1;
+}
+
+message PingResponse {
+    Ping pong = 1;
+}
+
+message Ack {
+    bool ack = 1;
+}
+
+message CreateQRequest {
+    string Qname = 1;
+}
+
+message CreateQResponse {
+    Ack ack = 1;
+}
+
+message QMessage {
+    int32 priority = 1;
+    string msg = 2;
+}
+message AddMessageRequest {
+    string Qname = 1;
+    QMessage qmsg = 2;
+}
+
+message AddMessageResponse {
+    Ack ack = 1;
+}
+
+message GetMessageRequest {
+    string Qname = 1;
+}
+
+message GetMessageResponse {
+    string qmsg = 1;
+}
+
+message DeleteQRequest {
+    string Qname = 1;
+}
+
+message DeleteQResponse {
+    Ack ack = 1;
+}
+
+service MsgQService {
+    rpc Ping(PingRequest) returns (PingResponse) {};
+    rpc CreateQ(CreateQRequest) returns (CreateQResponse) {};
+    rpc AddMessage(AddMessageRequest) returns (AddMessageResponse) {};
+    rpc GetMessage(GetMessageRequest) returns (GetMessageResponse) {};
+    rpc DeleteQ(DeleteQRequest) returns (DeleteQResponse) {};
+}
