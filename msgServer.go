@@ -120,8 +120,11 @@ func (s *server) GetMessage(ctx context.Context, req *msgq.GetMessageRequest) (*
 }
 
 func main() {
+	portNum := os.Args[1]
+	addr := "0.0.0.0:" + portNum
+
 	fmt.Println("Starting Message queue server")
-	lis, err := net.Listen("tcp", "0.0.0.0:50051")
+	lis, err := net.Listen("tcp", addr)
 	must(err)
 
 	s := grpc.NewServer()
